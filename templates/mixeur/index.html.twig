@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mixeur index{% endblock %}
+
+{% block body %}
+    <h1>Mixeur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Taillemax</th>
+                <th>Vitesse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mixeur in mixeurs %}
+            <tr>
+                <td>{{ mixeur.id }}</td>
+                <td>{{ mixeur.nom }}</td>
+                <td>{{ mixeur.taillemax }}</td>
+                <td>{{ mixeur.vitesse }}</td>
+                <td>
+                    <a href="{{ path('app_mixeur_show', {'id': mixeur.id}) }}">show</a>
+                    <a href="{{ path('app_mixeur_edit', {'id': mixeur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_mixeur_new') }}">Create new</a>
+{% endblock %}

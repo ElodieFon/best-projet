@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Bebe{% endblock %}
+
+{% block body %}
+    <h1>Create new Bebe</h1>
+
+    {{ include('bebe_crud/_form.html.twig') }}
+
+    <a href="{{ path('app_bebe_crud_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bebe index{% endblock %}
+
+{% block body %}
+    <h1>Bebe index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Age</th>
+                <th>Taille</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bebe in bebes %}
+            <tr>
+                <td>{{ bebe.id }}</td>
+                <td>{{ bebe.nom }}</td>
+                <td>{{ bebe.age }}</td>
+                <td>{{ bebe.taille }}</td>
+                <td>
+                    <a href="{{ path('app_bebe_crud_show', {'id': bebe.id}) }}">show</a>
+                    <a href="{{ path('app_bebe_crud_edit', {'id': bebe.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bebe_crud_new') }}">Create new</a>
+{% endblock %}
