@@ -13,7 +13,7 @@ class CommentaireProduit
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Mail::class, inversedBy: 'commentaireProduits')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'commentaireProduits')]
     private $user;
 
     #[ORM\ManyToOne(targetEntity: Produit::class, inversedBy: 'commentaireProduits')]
@@ -30,12 +30,12 @@ class CommentaireProduit
         return $this->id;
     }
 
-    public function getUser(): ?Mail
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?Mail $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
