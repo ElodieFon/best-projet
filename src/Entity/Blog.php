@@ -18,7 +18,7 @@ class Blog
     #[ORM\ManyToOne(targetEntity: Produit::class, inversedBy: 'blogs')]
     private $produit;
 
-    #[ORM\ManyToOne(targetEntity: Mail::class, inversedBy: 'blogs')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'blogs')]
     private $user;
 
     #[ORM\Column(type: 'text')]
@@ -55,12 +55,12 @@ class Blog
         return $this;
     }
 
-    public function getUser(): ?Mail
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?Mail $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
