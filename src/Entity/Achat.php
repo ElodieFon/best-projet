@@ -13,7 +13,7 @@ class Achat
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Mail::class, inversedBy: 'achats')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'achats')]
     private $client;
 
     #[ORM\ManyToOne(targetEntity: Produit::class, inversedBy: 'achats')]
@@ -27,12 +27,12 @@ class Achat
         return $this->id;
     }
 
-    public function getClient(): ?Mail
+    public function getClient(): ?User
     {
         return $this->client;
     }
 
-    public function setClient(?Mail $client): self
+    public function setClient(?User $client): self
     {
         $this->client = $client;
 
