@@ -64,11 +64,15 @@ class Mail implements UserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Blog::class)]
     private $blogs;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Message::class)]
+    private $messages;
+
     public function __construct()
     {
         $this->commentaireProduits = new ArrayCollection();
         $this->achats = new ArrayCollection();
         $this->blogs = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -342,6 +346,36 @@ class Mail implements UserInterface
             // set the owning side to null (unless already changed)
             if ($blog->getUser() === $this) {
                 $blog->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getUser() === $this) {
+                $message->setUser(null);
             }
         }
 
