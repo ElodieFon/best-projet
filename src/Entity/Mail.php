@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MailRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -52,6 +54,14 @@ class Mail implements UserInterface
 
     #[ORM\Column(type: 'date')]
     private $Date_Inscription;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CommentaireProduit::class)]
+    private $commentaireProduits;
+
+    public function __construct()
+    {
+        $this->commentaireProduits = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -236,6 +246,36 @@ class Mail implements UserInterface
     public function setDateInscription(\DateTimeInterface $Date_Inscription): self
     {
         $this->Date_Inscription = $Date_Inscription;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CommentaireProduit>
+     */
+    public function getCommentaireProduits(): Collection
+    {
+        return $this->commentaireProduits;
+    }
+
+    public function addCommentaireProduit(CommentaireProduit $commentaireProduit): self
+    {
+        if (!$this->commentaireProduits->contains($commentaireProduit)) {
+            $this->commentaireProduits[] = $commentaireProduit;
+            $commentaireProduit->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaireProduit(CommentaireProduit $commentaireProduit): self
+    {
+        if ($this->commentaireProduits->removeElement($commentaireProduit)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaireProduit->getUser() === $this) {
+                $commentaireProduit->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
@@ -33,6 +35,14 @@ class Produit
 
     #[ORM\Column(type: 'string', length: 255)]
     private $image;
+
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: CommentaireProduit::class)]
+    private $commentaireProduits;
+
+    public function __construct()
+    {
+        $this->commentaireProduits = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +129,36 @@ class Produit
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CommentaireProduit>
+     */
+    public function getCommentaireProduits(): Collection
+    {
+        return $this->commentaireProduits;
+    }
+
+    public function addCommentaireProduit(CommentaireProduit $commentaireProduit): self
+    {
+        if (!$this->commentaireProduits->contains($commentaireProduit)) {
+            $this->commentaireProduits[] = $commentaireProduit;
+            $commentaireProduit->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaireProduit(CommentaireProduit $commentaireProduit): self
+    {
+        if ($this->commentaireProduits->removeElement($commentaireProduit)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaireProduit->getProduit() === $this) {
+                $commentaireProduit->setProduit(null);
+            }
+        }
 
         return $this;
     }
