@@ -42,10 +42,14 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Achat::class)]
     private $achats;
 
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Blog::class)]
+    private $blogs;
+
     public function __construct()
     {
         $this->commentaireProduits = new ArrayCollection();
         $this->achats = new ArrayCollection();
+        $this->blogs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -191,6 +195,36 @@ class Produit
             // set the owning side to null (unless already changed)
             if ($achat->getProduit() === $this) {
                 $achat->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Blog>
+     */
+    public function getBlogs(): Collection
+    {
+        return $this->blogs;
+    }
+
+    public function addBlog(Blog $blog): self
+    {
+        if (!$this->blogs->contains($blog)) {
+            $this->blogs[] = $blog;
+            $blog->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlog(Blog $blog): self
+    {
+        if ($this->blogs->removeElement($blog)) {
+            // set the owning side to null (unless already changed)
+            if ($blog->getProduit() === $this) {
+                $blog->setProduit(null);
             }
         }
 
