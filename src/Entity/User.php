@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,6 +21,9 @@ class User implements UserInterface
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
+    #[ORM\Column(type: 'string')]
+    private $password;
+
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $nom;
 
@@ -29,13 +33,13 @@ class User implements UserInterface
     #[ORM\Column(type: 'string', length: 500, nullable: true)]
     private $adresse;
 
-    #[ORM\Column(type: 'string', length: 10, nullable: true)]
-    private $code_postale;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $ville;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    private $code_postale;
+
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
     private $tel;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -97,6 +101,21 @@ class User implements UserInterface
     }
 
     /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
      * @see UserInterface
      */
     public function eraseCredentials()
@@ -141,18 +160,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCodePostale(): ?string
-    {
-        return $this->code_postale;
-    }
-
-    public function setCodePostale(?string $code_postale): self
-    {
-        $this->code_postale = $code_postale;
-
-        return $this;
-    }
-
     public function getVille(): ?string
     {
         return $this->ville;
@@ -161,6 +168,18 @@ class User implements UserInterface
     public function setVille(?string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getCodePostale(): ?string
+    {
+        return $this->code_postale;
+    }
+
+    public function setCodePostale(?string $code_postale): self
+    {
+        $this->code_postale = $code_postale;
 
         return $this;
     }
