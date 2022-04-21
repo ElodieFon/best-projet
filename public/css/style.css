@@ -1,0 +1,21 @@
+body{
+    margin: auto;
+    width: 1310px;
+}
+
+h1{
+    font-family: "myriad-pro";
+}
+
+h2{
+    font-family: "myriad-pro";
+}
+
+td{
+    height: 200px;
+}
+
+.soustexte{
+    font-family: "myriad-pro";
+    font-style: italic;
+}

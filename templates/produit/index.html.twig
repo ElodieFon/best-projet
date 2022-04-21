@@ -3,8 +3,11 @@
 {% block title %}Produit index{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+    <h1 class="d-flex justify-content-center">SPACEGAME</h1>
+    <p class="soustexte d-flex justify-content-center">Site fait par Aurelie, Elodie, Karim et Aleandre. Incroyablement beau et fort, on a tous fait ! Prend aussi nos jeux !</p>
 
+    <h2 class="d-flex justify-content-left">CHOISI TON JEUX !</h2>
+    
     <table class="table">
         <thead>
             <tr>
@@ -29,7 +32,7 @@
                 <td>{{ produit.quantite }}</td>
                 <td>{{ produit.category }}</td>
                 <td>{{ produit.dateDeSortie ? produit.dateDeSortie|date('Y-m-d') : '' }}</td>
-                <td>{{ produit.image }}</td>
+                <td> <img class="image-produit" src="{{asset('images/' ~ produit.image)}}" /> </td>
                 <td>
                     <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
                     <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
