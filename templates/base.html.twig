@@ -24,12 +24,12 @@
                         <a class="nav-link" href="{{ path('app_produit_index') }}">Nos Produit</a>
                         <a class="nav-link" href="{{ path('app_blog_index') }}">Blog</a>
                         {% if app.user %}
-                            {# <a class="nav-link" href="{{ path('app_logout') }}">deconnexion</a> #}
-                            {# <a class="nav-link" href="{{ path('app_achat_index') }}">pannier</a> #}
+                            <a class="nav-link" href="{{ path('app_logout') }}">deconnexion</a> 
+                            <a class="nav-link" href="{{ path('app_achat_index') }}">panier</a>
                             {# <a class="nav-link" href="{{ path('app_user_index') }}">profil</a> #}
                         {% else %}
-                            {# <a class="nav-link" href="{{ path('app_login') }}">connection</a> #}
-                            {# <a class="nav-link" href="{{ path('app_register') }}">inscription</a> #}
+                            <a class="nav-link" href="{{ path('app_login') }}">connection</a>
+                            <a class="nav-link" href="{{ path('app_register') }}">inscription</a>
                         {% endif %}
 
                     </div>

@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -30,8 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $prenom;
 
-    #[ORM\Column(type: 'date')]
-    private $date_inscription;
+   
 
     #[ORM\Column(type: 'string', length: 500, nullable: true)]
     private $adresse;
@@ -145,17 +146,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDateInscription(): ?\DateTimeInterface
-    {
-        return $this->date_inscription;
-    }
-
-    public function setDateInscription(\DateTimeInterface $date_inscription): self
-    {
-        $this->date_inscription = $date_inscription;
-
-        return $this;
-    }
+  
 
     public function getAdresse(): ?string
     {
