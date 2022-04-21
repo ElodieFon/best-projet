@@ -11,8 +11,18 @@ h2{
     font-family: "myriad-pro";
 }
 
-td{
+.image-produit{
+
+    height: 220px;
+    width: 220px;
+
+}
+
+img{
     height: 200px;
+    width: 200px;
+    border: 1px solid;
+    margin: 40px;
 }
 
 .soustexte{

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %} 
+
+{% block title %}Hello UserProduitController!{% endblock %}
+
+{% block body %}
+    <!-- http://localhost:8000/user_produit/ -->
+    <h1 class="d-flex justify-content-center">SPACEGAME</h1>
+    <p class="soustexte d-flex flex-row justify-content-center">Site fait par Aurelie, Elodie, Karim et Alexandre. Incroyablement beau et fort, on a tous fait ! Prend aussi nos jeux !</p>
+
+    <h2 class="d-flex justify-content-left">CHOISI TON JEUX !</h2>
+        <div class="image-produit d-flex flex-row"> 
+        {% for produit in produits %}
+                
+                    <img  src="{{asset('images/' ~ produit.image)}}" /> 
+                
+        {% endfor %}
+        </div>
+
+{% endblock %}
