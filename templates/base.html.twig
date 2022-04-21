@@ -16,7 +16,8 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body> 
+        {% block body %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
     
@@ -43,6 +44,6 @@
             <p class="text-light soustexte d-flex justify-content-center">Site fait par Aurelie, Elodie, Karim et Alexandre. Incroyablement beau et fort, on a tous fait ! Prend aussi nos jeux !</p>
        </div>       
     </header>
-        {% block body %}{% endblock %}
+       {% endblock %}
     </body>
 </html>
