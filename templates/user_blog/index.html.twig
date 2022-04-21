@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FAQ SpaceGame{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>FAQ SpaceGame</h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">image</th>
+            <th scope="col">ttile</th>
+            <th scope="col">liens</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for blog in blogs %}
+          <tr>
+            <th scope="row">{{blog.id}}</th>
+            <td></td>
+            <td>{{blog.titre}}</td>
+            <td></td>
+            <td></td>
+          </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+  </div>
+{% endblock %}

@@ -33,6 +33,19 @@ class BlogRepository extends ServiceEntityRepository
         }
     }
 
+    public function getProductImg()
+    {
+        $entityMnager = $this->getEntityManager();
+
+        $query = $entityMnager->createQuery(
+            'SELECT * FROM blog
+            INNER JOIN produit ON blog.produit_id = produit.id
+            '
+        );
+
+        return $query->getResult();
+    }
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException
