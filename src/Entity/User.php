@@ -4,12 +4,11 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,6 +30,9 @@ class User implements UserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $prenom;
 
+    #[ORM\Column(type: 'date')]
+    private $date_inscription;
+
     #[ORM\Column(type: 'string', length: 500, nullable: true)]
     private $adresse;
 
@@ -43,17 +45,11 @@ class User implements UserInterface
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
     private $tel;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $pseudo;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $clef_parrainage;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $parrain;
-
-    #[ORM\Column(type: 'date')]
-    private $date_inscription;
 
     public function getId(): ?int
     {
@@ -149,6 +145,18 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getDateInscription(): ?\DateTimeInterface
+    {
+        return $this->date_inscription;
+    }
+
+    public function setDateInscription(\DateTimeInterface $date_inscription): self
+    {
+        $this->date_inscription = $date_inscription;
+
+        return $this;
+    }
+
     public function getAdresse(): ?string
     {
         return $this->adresse;
@@ -197,18 +205,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
     public function getClefParrainage(): ?string
     {
         return $this->clef_parrainage;
@@ -229,18 +225,6 @@ class User implements UserInterface
     public function setParrain(?string $parrain): self
     {
         $this->parrain = $parrain;
-
-        return $this;
-    }
-
-    public function getDateInscription(): ?\DateTimeInterface
-    {
-        return $this->date_inscription;
-    }
-
-    public function setDateInscription(\DateTimeInterface $date_inscription): self
-    {
-        $this->date_inscription = $date_inscription;
 
         return $this;
     }
