@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface
+#[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cet e-mail')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,35 +23,11 @@ class User implements UserInterface
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $nom;
+    #[ORM\Column(type: 'string')]
+    private $password;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $prenom;
-
-    #[ORM\Column(type: 'string', length: 500, nullable: true)]
-    private $adresse;
-
-    #[ORM\Column(type: 'string', length: 10, nullable: true)]
-    private $code_postale;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $ville;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $tel;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $pseudo;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $clef_parrainage;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $parrain;
-
-    #[ORM\Column(type: 'date')]
-    private $date_inscription;
+    private $Nom;
 
     public function getId(): ?int
     {
@@ -97,6 +76,21 @@ class User implements UserInterface
     }
 
     /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
      * @see UserInterface
      */
     public function eraseCredentials()
@@ -107,120 +101,12 @@ class User implements UserInterface
 
     public function getNom(): ?string
     {
-        return $this->nom;
+        return $this->Nom;
     }
 
-    public function setNom(?string $nom): self
+    public function setNom(?string $Nom): self
     {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(?string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(?string $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    public function getCodePostale(): ?string
-    {
-        return $this->code_postale;
-    }
-
-    public function setCodePostale(?string $code_postale): self
-    {
-        $this->code_postale = $code_postale;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(?string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getTel(): ?string
-    {
-        return $this->tel;
-    }
-
-    public function setTel(?string $tel): self
-    {
-        $this->tel = $tel;
-
-        return $this;
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
-    public function getClefParrainage(): ?string
-    {
-        return $this->clef_parrainage;
-    }
-
-    public function setClefParrainage(?string $clef_parrainage): self
-    {
-        $this->clef_parrainage = $clef_parrainage;
-
-        return $this;
-    }
-
-    public function getParrain(): ?string
-    {
-        return $this->parrain;
-    }
-
-    public function setParrain(?string $parrain): self
-    {
-        $this->parrain = $parrain;
-
-        return $this;
-    }
-
-    public function getDateInscription(): ?\DateTimeInterface
-    {
-        return $this->date_inscription;
-    }
-
-    public function setDateInscription(\DateTimeInterface $date_inscription): self
-    {
-        $this->date_inscription = $date_inscription;
+        $this->Nom = $Nom;
 
         return $this;
     }

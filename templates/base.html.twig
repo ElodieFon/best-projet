@@ -18,4 +18,9 @@
     <h1><h1>
         {% block body %}{% endblock %}
     </body>
+        {% if app.user %}
+        <div class="mb-3">
+            Vous êtes connecté {{ app.user.nom }}, <a href="{{ path('app_logout') }}">Déconnection</a>
+        </div>
+    {% endif %}
 </html>
