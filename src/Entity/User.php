@@ -4,12 +4,10 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -32,25 +30,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $prenom;
 
-   
-
     #[ORM\Column(type: 'string', length: 500, nullable: true)]
     private $adresse;
+
+    #[ORM\Column(type: 'string', length: 15, nullable: true)]
+    private $tel;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $ville;
 
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
-    private $code_postale;
+    private $code_postal;
 
-    #[ORM\Column(type: 'string', length: 10, nullable: true)]
-    private $tel;
+    #[ORM\Column(type: 'date', nullable: true)]
+    private $date_inscription;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $clef_parrainage;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $parrain;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $pseudo;
 
     public function getId(): ?int
     {
@@ -146,8 +148,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-  
-
     public function getAdresse(): ?string
     {
         return $this->adresse;
@@ -156,6 +156,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdresse(?string $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(?string $tel): self
+    {
+        $this->tel = $tel;
 
         return $this;
     }
@@ -172,26 +184,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCodePostale(): ?string
+    public function getCodePostal(): ?string
     {
-        return $this->code_postale;
+        return $this->code_postal;
     }
 
-    public function setCodePostale(?string $code_postale): self
+    public function setCodePostal(?string $code_postal): self
     {
-        $this->code_postale = $code_postale;
+        $this->code_postal = $code_postal;
 
         return $this;
     }
 
-    public function getTel(): ?string
+    public function getDateInscription(): ?\DateTimeInterface
     {
-        return $this->tel;
+        return $this->date_inscription;
     }
 
-    public function setTel(?string $tel): self
+    public function setDateInscription(?\DateTimeInterface $date_inscription): self
     {
-        $this->tel = $tel;
+        $this->date_inscription = $date_inscription;
 
         return $this;
     }
@@ -216,6 +228,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setParrain(?string $parrain): self
     {
         $this->parrain = $parrain;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(?string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }
