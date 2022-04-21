@@ -1,0 +1,23 @@
+
+
+h1{
+    font-family: "myriad-pro";
+}
+h2{
+    font-family: "myriad-pro";
+}
+.image-produit{
+
+    height: 220px;
+    width: 220px;
+}
+img{
+    height: 200px;
+    width: 200px;
+    border: 1px solid;
+    margin: 40px;
+}
+.soustexte{
+    font-family: "myriad-pro";
+    font-style: italic;
+}
